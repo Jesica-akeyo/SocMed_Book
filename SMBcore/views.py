@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     user_object = User.objects.get(username=request.user.username)
     user_profile = Profile.objects.get(user=request.user)
+
+    posts = Post.objects.all()
     '''except Profile.DoesNotExist:
         #If the user's profile doesnt exist create a new one
         user_profile = Profile(user=request.user)
@@ -19,7 +21,7 @@ def index(request):
     user_profile = Profile.objects.get(user=user_object)
     user_profile.save()'''
 
-    return render(request, 'index.html', {'user_profile': user_profile})
+    return render(request, 'index.html', {'user_profile': user_profile, 'posts': posts})
 
 @login_required(login_url='signin')
 def upload(request):
